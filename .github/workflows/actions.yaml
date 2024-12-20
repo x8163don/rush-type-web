@@ -39,3 +39,21 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+  
+  deploy:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        # If you're changing the branch from main,
+        # also change the `main` in `refs/heads/main`
+        # below accordingly.
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+    

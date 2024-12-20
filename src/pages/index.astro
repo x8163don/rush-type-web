@@ -7,9 +7,11 @@ import Steps from '~/components/widgets/Steps.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
-  title: 'RushType — Free template for creating websites with Astro + Tailwind CSS',
+  title: 'RushType — Automate text expansion without clicks, making your work more efficient',
   ignoreTitleTemplate: true,
 };
+
+const extensionURL = 'https://chromewebstore.google.com/detail/rushtype/mdiaogojdgljpfapolbgdlflobbagned';
 ---
 
 <Layout metadata={metadata}>
@@ -20,7 +22,7 @@ const metadata = {
       {
         variant: 'primary',
         text: 'Add to Chrome',
-        href: 'https://github.com/onwidget/astrowind',
+        href: extensionURL,
         target: '_blank',
         icon: 'tabler:download',
       },
@@ -29,18 +31,14 @@ const metadata = {
     image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image' }}
   >
     <Fragment slot="title">
-      Free template for <span class="hidden xl:inline">creating websites with</span>
-      <span class="text-accent dark:text-white highlight"> Astro 5.0</span> + Tailwind CSS
+      Boost your <span class="text-accent dark:text-white highlight">productivity</span> with just a few keystrokes
     </Fragment>
 
     <Fragment slot="subtitle">
       <span class="hidden sm:inline">
-        <span class="font-semibold">AstroWind</span> is a free, customizable and production-ready template for Astro 5.0
-        + Tailwind CSS.</span
-      >
-      <span class="block mb-1 sm:hidden font-bold text-blue-600">AstroWind: Production-ready.</span>
-      Suitable for Startups, Small Business, SaaS websites, Professional Portfolios, Marketing websites, Landing Pages &
-      Blogs.
+        <span class="font-semibold">RushType</span> is a browser extension that works on any website, allowing you to customize
+        and use text snippets. Save time and type faster anywhere!
+      </span>
     </Fragment>
   </Hero>
 
@@ -49,44 +47,27 @@ const metadata = {
   <Features
     id="features"
     tagline="Features"
-    title="What you get with AstroWind"
-    subtitle="One of the most professional and comprehensive templates currently on the market. Most starred & forked Astro theme in 2022, 2023 and 2024."
+    title="What you get with RushType"
     items={[
       {
-        title: 'Astro + Tailwind CSS Integration',
-        description:
-          'A seamless integration between two great frameworks that offer high productivity, performance and versatility.',
+        title: 'Works on any website',
+        description: 'You can use it across all your favorite platforms.',
         icon: 'tabler:brand-tailwind',
       },
       {
-        title: 'Ready-to-use Components',
-        description:
-          'Widgets made with Tailwind CSS ready to be used in Marketing Websites, SaaS, Blogs, Personal Profiles, Small Business...',
+        title: 'Customizable Templates',
+        description: 'Create and manage your own text templates to streamline repetitive typing tasks.',
         icon: 'tabler:components',
       },
       {
-        title: 'Best Practices',
-        description:
-          'Creating secure, efficient, and user-friendly websites that deliver exceptional experiences and lasting value.',
+        title: 'Google Sheets integration',
+        description: 'Import your data directly from Google Sheets for easy management.',
         icon: 'tabler:list-check',
       },
       {
-        title: 'Excellent Page Speed',
-        description:
-          'Having a good page speed impacts organic search ranking, improves user experience (UI/UX) and increase conversion rates.',
+        title: 'Smart Trigger Words',
+        description: 'Set custom trigger words that automatically expand into full phrases or sentences when typed.',
         icon: 'tabler:rocket',
-      },
-      {
-        title: 'Search Engine Optimization (SEO)',
-        description:
-          "SEO lies in its ability to enhance a website's visibility, driving organic traffic and enabling it to reach a wider audience.",
-        icon: 'tabler:arrows-right-left',
-      },
-      {
-        title: 'Open to new ideas and contributions',
-        description:
-          'Embracing a culture that is open to new ideas and contributions is integral fostering innovation, collaboration, and a dynamic user experience.',
-        icon: 'tabler:bulb',
       },
     ]}
   />
@@ -94,34 +75,28 @@ const metadata = {
   <!-- Steps Widget ****************** -->
 
   <Steps
-    title="Get your dream website up and running in no time with AstroWind."
+    title="Get started with RushType."
     items={[
       {
-        title: 'Step 1: <span class="font-medium">Download</span>',
-        description:
-          "Kickstart with GitHub! Either fork the AstroWind template or simply click 'Use this template'. Your canvas awaits, ready for your digital masterpiece. In just a few clicks, you've already set the foundation.",
-        icon: 'tabler:package',
+        title: 'Step 1: <span class="font-medium">Add to your browser</span>',
+        description: `Install the RushType extension from the <a class="link underline" target="_blank" href=${extensionURL}>Chrome Web Store</a> to get started.`,
+        icon: 'tabler:download',
       },
       {
-        title: 'Step 2: <span class="font-medium">Add content</span>',
-        description:
-          "Pour your vision into it. Add images, text, and all that jazz to breathe life into your digital space. Remember, it's the content that tells your story, so make it captivating.",
-        icon: 'tabler:letter-case',
+        title: 'Step 2: <span class="font-medium">Create Your First Snippet</span>',
+        description: 'Create a custom text snippet and save it for future use.',
+        icon: 'tabler:edit',
       },
       {
-        title: 'Step 3: <span class="font-medium">Customize styles</span>',
-        description:
-          'Give it your personal touch. Tailor colors, fonts, and layouts until it feels just right. Your unique flair, amplified by AstroWind! Precision in design ensures a seamless user experience.',
-        icon: 'tabler:paint',
+        title: 'Step 3: <span class="font-medium">Use Your Trigger Word</span>',
+        description: 'Type your custom trigger word anywhere on any website to instantly expand your snippet.',
+        icon: 'tabler:keyboard',
       },
       {
-        title: 'Ready!',
-        icon: 'tabler:check',
+        title: 'Enjoy!',
+        icon: 'tabler:mood-smile',
       },
     ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1616198814651-e71f960c3180?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
-      alt: 'Steps image',
     }}
   />
 
@@ -132,19 +107,18 @@ const metadata = {
       {
         variant: 'primary',
         text: 'Add to Chrome',
-        href: 'https://github.com/onwidget/astrowind',
+        href: extensionURL,
         target: '_blank',
         icon: 'tabler:download',
       },
     ]}
   >
     <Fragment slot="title">
-      Astro&nbsp;+&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Tailwind CSS</span>
+      Boost your&nbsp;<span class="font-medium">productivity</span> now
     </Fragment>
 
     <Fragment slot="subtitle">
-      Be very surprised by these huge fake numbers you are seeing on this page. <br class="hidden md:inline" />Don't
-      waste more time! :P
+      Save time and type faster on any website. <br class="hidden md:inline" />Start using RushType now!
     </Fragment>
   </CallToAction>
 </Layout>

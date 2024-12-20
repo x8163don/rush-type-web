@@ -16,7 +16,7 @@ export const headerData = {
       ],
     },
   ],
-  actions: [{ text: 'Download', href: 'https://github.com/onwidget/astrowind', target: '_blank' }],
+  actions: [{ text: 'Download', href: 'https://chromewebstore.google.com/detail/rushtype/mdiaogojdgljpfapolbgdlflobbagned', target: '_blank' }],
 };
 
 export const footerData = {

@@ -4,8 +4,16 @@
 
 <html>
   <body>
-    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded();" gapi_processed="true" />
     <script>
+      const script = document.createElement('script');
+      script.src = 'https://apis.google.com/js/api.js';
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        gapiLoaded(); 
+      };
+      document.body.appendChild(script);
+      
       const EXTENSION_ORIGIN = 'chrome-extension://mdiaogojdgljpfapolbgdlflobbagned';
       const SCOPES = 'https://www.googleapis.com/auth/drive.file';
       const CLIENT_ID = '1090813013146-2tk4ln88dt20tdn1vj6p9ga8349h65mi.apps.googleusercontent.com';
@@ -39,7 +47,7 @@
         false
       );
 
-      window.gapiLoaded = () => {
+      function gapiLoaded(){
         gapi.load('client:picker', initializePicker);
       }
 

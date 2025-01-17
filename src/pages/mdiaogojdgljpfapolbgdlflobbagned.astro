@@ -1,0 +1,122 @@
+---
+
+---
+<html>
+<body>
+  <script src="https://apis.google.com/js/api.js" />
+  <script>
+  const EXTENSION_ORIGIN = 'chrome-extension://mdiaogojdgljpfapolbgdlflobbagned';
+const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+const CLIENT_ID = ''; 
+const API_KEY = '';
+const APP_ID = '';
+
+let tokenClient;
+let accessToken = null;
+let locale = null;
+let filesSelected = false;
+let pickerInited = false;
+let gisInited = false;
+
+window.addEventListener(
+  'message',
+  async (event) => {
+    if (event.origin !== EXTENSION_ORIGIN) {
+      return;
+    }
+
+    if (event.data.action === 'configuration') {
+      locale = event.data.locale;
+      accessToken = event.data.accessToken;
+      filesSelected = Boolean(event.data.filesSelected);
+    }
+
+    if (event.data.action === 'createPicker') {
+      createPicker();
+    }
+  },
+  false,
+);
+
+function gapiLoaded() {
+  gapi.load('client:picker', initializePicker)
+}
+
+async function initializePicker() {
+  await gapi.client.load('https://www.googleapis.com/discovery/v1/apis/drive/v3/rest')
+  pickerInited = true;
+  maybeEnableButtons();
+}
+
+function maybeEnableButtons() {
+  if (pickerInited && gisInited) {
+    console.log('Picker and GIS initialized. Buttons can be enabled.')
+  }
+}
+
+function handleAuthClick() {
+  tokenClient.callback = async (response) => {
+    if (response.error !== undefined) {
+      throw response;
+    }
+
+    accessToken = accessToken || response.access_token;
+    await createPicker();
+  };
+
+  if (tokenClient.popup) {
+    tokenClient.popup.focus()
+  }
+
+  if (accessToken === null) {
+    tokenClient.requestAccessToken({ prompt: 'select_account' })
+  } else {
+    tokenClient.requestAccessToken({ prompt: '' })
+  }
+}
+
+function handleSignoutClick() {
+  if (accessToken) {
+    google.accounts.oauth2.revoke(accessToken)
+    accessToken = null
+  }
+}
+
+function createPicker() {
+  const view = new google.picker.DocsView(google.picker.ViewId.SPREADSHEETS).setMode(
+    google.picker.DocsViewMode.LIST,
+  );
+  view.setMimeTypes('spreadsheet/*,application/vnd.google-apps.spreadsheet');
+
+  const picker = new google.picker.PickerBuilder()
+    .enableFeature(google.picker.Feature.NAV_HIDDEN)
+    .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+    .setLocale(locale || 'en')
+    .setDeveloperKey(API_KEY)
+    .setAppId(APP_ID)
+    .setOAuthToken(accessToken)
+    .addView(view)
+    .setOrigin(EXTENSION_ORIGIN)
+    .setCallback(pickerCallback)
+    .build();
+
+  picker.setVisible(true);
+
+  window.parent.postMessage({ action: 'pickerLoaded' }, EXTENSION_ORIGIN);
+}
+
+async function pickerCallback(data) {
+  if (data.action === google.picker.Action.PICKED) {
+    window.parent.postMessage(
+      {
+        action: 'filesSelected',
+        files: data[google.picker.Response.DOCUMENTS],
+      },
+      EXTENSION_ORIGIN,
+    );
+  } else if (data.action === google.picker.Action.CANCEL) {
+    window.parent.postMessage({ action: 'pickerCanceled' }, EXTENSION_ORIGIN);
+  }
+}</script>
+</body>
+</html>

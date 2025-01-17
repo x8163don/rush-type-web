@@ -1,1 +1,0 @@
-import"https://accounts.google.com/gsi/client";
